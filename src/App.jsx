@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
+import { GoogleLogin } from '@react-oauth/google';
 import { ALLERGENS, BASE_CATEGORIES, BRAND_PALETTE } from './constants';
 import { translateDish } from './utils/translator';
 import { clearState, loadState, saveState } from './utils/storage';
@@ -124,7 +125,7 @@ const Header = ({ auth, onLogout, onEditProfile, showEditProfile = true }) => (
   </header>
 );
 
-const Landing = ({ onLogin }) => {
+const Landing = ({ onLogin, onLoginGoogle }) => {
   const sellingPoints = [
     'QR personalizado con marca Qarta listo para descargar.',
     'Onboarding guiado: empresa, platos y previsualización en minutos.',
@@ -134,6 +135,7 @@ const Landing = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen gradient-card text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(248,92,27,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(255,193,156,0.25),transparent_35%)]" />
       <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-4 py-12 lg:flex-row lg:items-center">
         <div className="space-y-6 lg:w-1/2">
           <GradientChip label="Qarta: tu carta digital en 5 minutos" />
@@ -154,19 +156,28 @@ const Landing = ({ onLogin }) => {
             ))}
           </div>
           <div className="flex flex-wrap gap-3 pt-2">
+            <div className="rounded-xl bg-white px-4 py-2 shadow-lg shadow-brand-500/20">
+              <GoogleLogin
+                onSuccess={(cred) => onLoginGoogle(cred)}
+                onError={() => onLoginGoogle(null, 'Error con Google Login')}
+                shape="pill"
+                text="continue_with"
+                size="large"
+              />
+            </div>
             <button
               onClick={() => onLogin('client')}
-              className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-slate-900 shadow-lg shadow-brand-500/20 transition hover:-translate-y-0.5"
+              className="flex items-center gap-3 rounded-xl border border-white/40 px-5 py-3 text-white transition hover:bg-white/10"
             >
-              <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">Google</span>
-              <span className="text-sm font-semibold">Entrar como cliente</span>
+              <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">Dev</span>
+              <span className="text-sm font-semibold">Entrar como cliente (dev)</span>
             </button>
             <button
               onClick={() => onLogin('superadmin')}
               className="flex items-center gap-3 rounded-xl border border-white/40 px-5 py-3 text-white transition hover:bg-white/10"
             >
-              <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">Google</span>
-              <span className="text-sm font-semibold">Entrar como superadmin</span>
+              <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">Dev</span>
+              <span className="text-sm font-semibold">Entrar como superadmin (dev)</span>
             </button>
           </div>
         </div>
@@ -1031,6 +1042,32 @@ function App() {
     }
   };
 
+  const loginWithGoogle = async (credentialResponse, customError) => {
+    if (!credentialResponse?.credential) {
+      setError(customError || 'No se recibió token de Google.');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    try {
+      const { token: tk, user: u, restaurant: rest } = await api.authGoogle(credentialResponse.credential);
+      setToken(tk);
+      api.setToken(tk);
+      setUser(u);
+      setRestaurant(normalizeRestaurant(rest));
+      if (u.role === 'SUPERADMIN') {
+        const { restaurants } = await api.adminRestaurants();
+        setAdminRestaurants(restaurants.map(normalizeRestaurant));
+      } else {
+        setAdminRestaurants([]);
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     setToken(null);
     api.setToken(null);
@@ -1140,7 +1177,7 @@ function App() {
     return (
       <>
         {error && <div className="absolute inset-x-0 top-0 bg-red-100 px-4 py-2 text-sm text-red-800">{error}</div>}
-        <Landing onLogin={login} />
+        <Landing onLogin={login} onLoginGoogle={loginWithGoogle} />
       </>
     );
   }
