@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CLIENT
+  SUPERADMIN
+}
+
+enum RestaurantStatus {
+  ACTIVE
+  PAUSED
+}
+
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  name         String
+  role         Role         @default(CLIENT)
+  avatar       String?
+  restaurants  Restaurant[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model Restaurant {
+  id             String             @id @default(uuid())
+  owner          User               @relation(fields: [ownerId], references: [id])
+  ownerId        String             @unique
+  companyName    String             @default("")
+  address        String             @default("")
+  phone          String             @default("")
+  categories     Category[]
+  dishes         Dish[]
+  qrColor        String             @default("#0ea5e9")
+  tagline        String?
+  published      Boolean            @default(false)
+  menuLink       String?
+  status         RestaurantStatus   @default(ACTIVE)
+  setupCompleted Boolean            @default(false)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+}
+
+model Category {
+  id            String       @id @default(uuid())
+  name          String
+  restaurant    Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurantId  String
+  dishes        Dish[]
+  createdAt     DateTime     @default(now())
+}
+
+model Dish {
+  id            String       @id @default(uuid())
+  title         String
+  description   String
+  price         Decimal      @db.Decimal(10, 2)
+  allergens     String[]     @db.Text
+  imageUrl      String?
+  restaurant    Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurantId  String
+  category      Category     @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  translations  Json?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
