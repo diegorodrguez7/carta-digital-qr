@@ -17,4 +17,4 @@ export const BASE_CATEGORIES = [
   { id: 'vinos', name: 'Vinos' },
 ];
 
-export const BRAND_PALETTE = ['#0ea5e9', '#06c2a1', '#111827', '#10b981', '#0f172a'];
+export const BRAND_PALETTE = ['#f85c1b', '#ffa067', '#1f1729', '#ff7f3d', '#8b2c0f'];

@@ -69,8 +69,8 @@ const normalizeRestaurant = (rest) => {
 };
 
 const GradientChip = ({ label }) => (
-  <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-sky-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-100">
-    <span className="h-2 w-2 rounded-full bg-emerald-500" />
+  <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500/10 to-brand-300/10 px-3 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-100">
+    <span className="h-2 w-2 rounded-full bg-brand-500" />
     {label}
   </span>
 );
@@ -79,7 +79,7 @@ const SectionCard = ({ title, description, children, actions, className }) => (
   <div className={clsx('rounded-2xl border border-slate-200 bg-white p-6 shadow-sm', className)}>
     <div className="mb-4 flex items-start justify-between gap-3">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-wide text-emerald-600">Qarta</p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">Qarta</p>
         <h3 className="font-heading text-xl font-semibold text-slate-900">{title}</h3>
         {description && <p className="text-sm text-slate-500">{description}</p>}
       </div>
@@ -93,11 +93,11 @@ const Header = ({ auth, onLogout, onEditProfile, showEditProfile = true }) => (
   <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
     <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-sky-500 text-lg font-bold text-white shadow-glow">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-300 text-lg font-bold text-white shadow-glow">
           Q
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase text-emerald-600">Panel Qarta</p>
+          <p className="text-xs font-semibold uppercase text-brand-600">Panel Qarta</p>
           <h2 className="font-heading text-lg text-slate-900">Hola, {auth.name}</h2>
         </div>
       </div>
@@ -105,14 +105,14 @@ const Header = ({ auth, onLogout, onEditProfile, showEditProfile = true }) => (
         {showEditProfile && (
           <button
             onClick={onEditProfile}
-            className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:text-emerald-700"
+            className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-700"
           >
             Editar perfil de empresa
           </button>
         )}
         <button
           onClick={onLogout}
-          className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-emerald-600"
+          className="rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-600"
         >
           Cerrar sesión
         </button>
@@ -134,22 +134,21 @@ const Landing = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen gradient-card text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,197,94,0.15),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(14,165,233,0.18),transparent_35%)]" />
       <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-4 py-12 lg:flex-row lg:items-center">
         <div className="space-y-6 lg:w-1/2">
           <GradientChip label="Qarta: tu carta digital en 5 minutos" />
           <h1 className="font-heading text-4xl font-semibold leading-tight text-white sm:text-5xl">
             Carta digital QR para bares y restaurantes
-            <span className="block text-emerald-200">Un menú limpio, cuidado y listo sin PDFs feos.</span>
+            <span className="block text-orange-200">Un menú limpio, cuidado y listo sin PDFs feos.</span>
           </h1>
-          <p className="text-lg text-slate-100">
+          <p className="text-lg text-orange-50">
             Qarta te guía para crear una carta moderna con Google Login, traducciones automáticas y un QR con tu marca. Olvídate
             de archivos pesados y menús desactualizados.
           </p>
           <div className="space-y-3">
             {sellingPoints.map((point) => (
-              <div key={point} className="flex items-start gap-3 text-slate-100">
-                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-emerald-200">•</span>
+              <div key={point} className="flex items-start gap-3 text-orange-50">
+                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-orange-200">•</span>
                 <p>{point}</p>
               </div>
             ))}
@@ -157,9 +156,9 @@ const Landing = ({ onLogin }) => {
           <div className="flex flex-wrap gap-3 pt-2">
             <button
               onClick={() => onLogin('client')}
-              className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-slate-900 shadow-lg shadow-emerald-500/20 transition hover:-translate-y-0.5"
+              className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-slate-900 shadow-lg shadow-brand-500/20 transition hover:-translate-y-0.5"
             >
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">Google</span>
+              <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">Google</span>
               <span className="text-sm font-semibold">Entrar como cliente</span>
             </button>
             <button
@@ -175,10 +174,10 @@ const Landing = ({ onLogin }) => {
           <div className="glass elevated rounded-3xl p-6 text-slate-900 shadow-glow">
             <div className="mb-4 flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase text-emerald-600">Demostración</p>
+                <p className="text-xs font-semibold uppercase text-brand-600">Demostración</p>
                 <p className="font-heading text-xl font-semibold text-slate-900">Así se ve tu carta en Qarta</p>
               </div>
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">QR listo</span>
+              <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">QR listo</span>
             </div>
             <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
               <div className="flex items-center gap-3">
@@ -190,24 +189,32 @@ const Landing = ({ onLogin }) => {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-900">Somos Restaurant</p>
+                  <p className="font-semibold text-slate-900">Bar-Restaurante Carta digital</p>
                   <p className="text-xs text-slate-500">Entrantes, principales, postres y vinos en un solo QR</p>
                 </div>
               </div>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold uppercase text-emerald-600">Plato destacado</p>
+                  <p className="text-xs font-semibold uppercase text-brand-600">Plato destacado</p>
                   <div className="rounded-xl border border-slate-100 bg-slate-50 p-3">
                     <p className="font-semibold text-slate-900">Croquetas mixtas</p>
                     <p className="text-xs text-slate-600">Crujientes con relleno cremoso</p>
-                    <p className="mt-2 text-lg font-bold text-emerald-700">11,50 €</p>
+                    <p className="mt-2 text-lg font-bold text-brand-700">11,50 €</p>
+                    <div className="mt-2 flex gap-2">
+                      <span className="flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-[11px] font-semibold text-orange-800 ring-1 ring-orange-200">
+                        🥚 Huevo
+                      </span>
+                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-1 text-[11px] font-semibold text-amber-800 ring-1 ring-amber-200">
+                        🥛 Lactosa
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center rounded-2xl border border-slate-100 bg-slate-50 p-4">
                   <QRCode
                     value="https://qarta.xyzdigital.es/menu/demo"
-                    bgColor="#f8fafc"
-                    fgColor="#0f172a"
+                    bgColor="#fdf7f2"
+                    fgColor="#1f1729"
                     className="h-32 w-32"
                   />
                 </div>
@@ -268,7 +275,7 @@ const CompanyForm = ({ company, onSave }) => {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-emerald-600"
+          className="rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-600"
         >
           Guardar datos
         </button>
@@ -398,14 +405,14 @@ const DishForm = ({ categories, draft, setDraft, onAddDish, onTranslate, transla
         <button
           type="button"
           onClick={onTranslate}
-          className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100"
+          className="rounded-xl border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700 transition hover:bg-brand-100"
           disabled={translationLoading || !draft.title}
         >
           {translationLoading ? 'Traduciendo...' : 'Traducir a inglés y alemán'}
         </button>
         <button
           type="submit"
-          className="rounded-xl bg-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-emerald-600"
+          className="rounded-xl bg-brand-500 px-5 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-600"
         >
           Añadir plato
         </button>
@@ -921,7 +928,7 @@ const AdminExperience = ({
                 onClick={restaurant.published ? onUnpublish : onPublish}
                 className={clsx(
                   'rounded-xl px-4 py-2 text-sm font-semibold text-white shadow-glow transition',
-                  restaurant.published ? 'bg-amber-500 hover:bg-amber-600' : 'bg-emerald-500 hover:bg-emerald-600',
+                  restaurant.published ? 'bg-amber-500 hover:bg-amber-600' : 'bg-brand-500 hover:bg-brand-600',
                 )}
               >
                 {restaurant.published ? 'Pausar carta' : 'Publicar carta'}
@@ -1170,17 +1177,12 @@ function App() {
         showEditProfile={!!restaurant?.setupCompleted}
       />
       <main className="mx-auto max-w-6xl space-y-6 px-4 py-8">
-        <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 p-6 text-white shadow-glow">
-          <p className="text-sm uppercase tracking-wide text-emerald-200">Bienvenido a Qarta</p>
+        <div className="rounded-3xl bg-gradient-to-br from-[#1f1729] via-[#2a1e38] to-brand-800 p-6 text-white shadow-glow">
+          <p className="text-sm uppercase tracking-wide text-brand-100">Bienvenido a Qarta</p>
           <h2 className="font-heading text-3xl font-semibold">Tu carta digital QR lista en minutos</h2>
-          <p className="text-slate-200">
+          <p className="text-orange-50">
             Completa el onboarding, traduce tus platos y descarga el QR personalizado con el logo de Qarta.
           </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <GradientChip label="Google Login listo" />
-            <GradientChip label="Traducciones EN/DE" />
-            <GradientChip label="1 carta activa por empresa" />
-          </div>
         </div>
         {error && <div className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</div>}
         <AdminExperience

@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  color: #0f172a;
-  background-color: #f8fafc;
+  color: #1f1729;
+  background-color: #fdf7f2;
   font-family: 'Manrope', system-ui, -apple-system, sans-serif;
 }
 
@@ -25,15 +25,15 @@ body {
 
 .glass {
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .gradient-card {
-  background: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.18), transparent 40%),
-    radial-gradient(circle at 80% 0%, rgba(6, 194, 161, 0.22), transparent 45%),
-    #0f172a;
+  background: radial-gradient(circle at 25% 20%, rgba(248, 92, 27, 0.18), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(255, 193, 156, 0.3), transparent 45%),
+    #251b33;
 }
 
 .elevated {
-  box-shadow: 0 20px 60px -30px rgba(15, 23, 42, 0.35);
+  box-shadow: 0 20px 60px -30px rgba(31, 23, 41, 0.35);
 }
